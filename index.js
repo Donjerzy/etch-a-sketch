@@ -66,7 +66,10 @@ function createGrids(total) {
             const gridCellVertical = document.createElement('div'); 
             gridCellVertical.setAttribute('style', `height:${divSize}px; width:${divSize}px; border: black solid 1px;`);
             gridCellVertical.addEventListener('mouseover', ()=> {
+
+                mode === 'color' ? gridCellVertical.style.cursor = 'default' : gridCellVertical.style.cursor = 'crosshair'
                 gridCellVertical.style.backgroundColor = `${randomColorGenerator(mode)}`;
+                
             })
             gridCellHorizontal.append(gridCellVertical);
         }
