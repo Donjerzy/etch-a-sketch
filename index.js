@@ -37,8 +37,8 @@ modeBtn.addEventListener('click', ()=> {
 });
 
 gridSizeBtn.addEventListener('click', ()=> {
-    const value = parseInt(prompt('Enter your prefered grid size the maximum is 100'));
-    if (value && typeof value === 'number' && value < 101 ) {
+    const value = parseInt(prompt('Enter your prefered grid size the maximum is 72, minimum is 16.'));
+    if (value && typeof value === 'number' && value < 73 && value >=16 ) {
         createGrids(value);
         gridSizeBtn.textContent = `Grid size: ${value}x${value}`;
     }  else {
@@ -56,20 +56,38 @@ function randomColorGenerator(mode) {
 }
 
 function createGrids(total) {
+    let varNum = 2;
+    if (total >= 16 && total <=33) {
+        varNum = 2;
+    } else if (total >= 34 && total <=41) {
+        varNum = 3;
+    } else if (total >= 42 && total <=47) {
+        varNum = 4;
+    } else if (total >= 48 && total <=52) {
+        varNum = 5;
+    } else if (total >= 53 && total <=57) {
+        varNum = 6;
+    } else if (total >= 58 && total <=61) {
+        varNum = 7;
+    } else if (total >= 62 && total <=65) {
+        varNum = 8;
+    } else if (total >= 66 && total <=72) {
+        varNum = 10;
+    } 
+    
     container.innerHTML = "";
     container.setAttribute('style', 'display:flex; flex-wrap: wrap;');
-    const divSize = PAD_WIDTH / (total + 1); 
+    const divSize = PAD_WIDTH / (total + varNum) ; 
+    console.log(`The div size is ${divSize}`);
     for(let i = 0; i< total; i++) {
         const gridCellHorizontal = document.createElement('div');
-        gridCellHorizontal.setAttribute('style', `height:10000px width:${divSize}px; border: black solid 1px; display:flex; flex-direction:column; margin-bottom:20px`);
-        for(let y =0; y< total; y++) {
+        gridCellHorizontal.setAttribute('style', ` width:${divSize}px; border: black solid 1px; display:flex; flex-direction:column; margin-bottom:20px`);
+        for(let y =0; y<total; y++) {
             const gridCellVertical = document.createElement('div'); 
-            gridCellVertical.setAttribute('style', `height:${divSize}px; width:${divSize}px; border: black solid 1px;`);
+            gridCellVertical.setAttribute('style', `height:${divSize}px; width:${divSize}px; border-bottom: 1px solid black;`);
             gridCellVertical.addEventListener('mouseover', ()=> {
-
                 mode === 'color' ? gridCellVertical.style.cursor = 'default' : gridCellVertical.style.cursor = 'crosshair'
                 gridCellVertical.style.backgroundColor = `${randomColorGenerator(mode)}`;
-                
             })
             gridCellHorizontal.append(gridCellVertical);
         }
